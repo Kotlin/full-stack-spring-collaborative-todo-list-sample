@@ -2,12 +2,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("org.springframework.boot") version "2.7.2" apply false
-    id("io.spring.dependency-management") version "1.1.0" apply false
 
-    kotlin("multiplatform") version "1.7.22"
-    kotlin("plugin.serialization") version "1.7.22"
+    kotlin("multiplatform") version "1.8.10"
+    kotlin("plugin.serialization") version "1.8.10"
 
-    kotlin("plugin.spring") version "1.7.22" apply false
+    kotlin("plugin.spring") version "1.8.10" apply false
 }
 
 group = "com.example"
@@ -23,7 +22,6 @@ repositories {
 kotlin {
     jvm("spring") {
         apply(plugin = "org.springframework.boot")
-        apply(plugin = "io.spring.dependency-management")
         apply(plugin = "org.jetbrains.kotlin.plugin.spring")
         apply(plugin = "org.jetbrains.kotlin.plugin.serialization")
 
@@ -42,8 +40,7 @@ kotlin {
         browser {
             commonWebpackConfig {
                 cssSupport {
-                    enabled = true
-//                    enabled.set(true)   //1.8.0+
+                    enabled.set(true)   //1.8.0+
                 }
                 outputFileName = "main.js"
                 outputPath = File(buildDir, "processedResources/spring/main/static")
@@ -89,6 +86,7 @@ kotlin {
         val springMain by getting {
             dependsOn(commonMain)
             dependencies {
+                implementation(platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES))
                 implementation("org.springframework.boot:spring-boot-starter-rsocket")
                 implementation("org.springframework.boot:spring-boot-starter-webflux")
 
