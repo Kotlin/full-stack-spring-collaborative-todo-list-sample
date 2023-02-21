@@ -1,13 +1,13 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("multiplatform") version "1.5.31"
-    kotlin("plugin.serialization") version "1.5.31"
+    id("org.springframework.boot") version "2.7.2" apply false
+    id("io.spring.dependency-management") version "1.1.0" apply false
 
-    id("org.springframework.boot") version "2.5.2" apply false
-    id("io.spring.dependency-management") version "1.0.11.RELEASE"  apply false
+    kotlin("multiplatform") version "1.7.22"
+    kotlin("plugin.serialization") version "1.7.22"
 
-    kotlin("plugin.spring") version "1.5.31"  apply false
+    kotlin("plugin.spring") version "1.7.22" apply false
 }
 
 group = "com.example"
@@ -41,7 +41,10 @@ kotlin {
         binaries.executable()
         browser {
             commonWebpackConfig {
-                cssSupport.enabled = true
+                cssSupport {
+                    enabled = true
+//                    enabled.set(true)   //1.8.0+
+                }
                 outputFileName = "main.js"
                 outputPath = File(buildDir, "processedResources/spring/main/static")
             }
@@ -50,13 +53,14 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("com.benasher44:uuid:0.3.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-html:0.7.3")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.2.1")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
+                implementation("com.benasher44:uuid:0.6.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
             }
         }
         val commonTest by getting {
+            dependsOn(commonMain)
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
@@ -65,18 +69,18 @@ kotlin {
         val commonClientMain by creating {
             dependsOn(commonMain)
             dependencies {
-                implementation("io.rsocket.kotlin:rsocket-core:0.13.1")
-                implementation("io.rsocket.kotlin:rsocket-transport-ktor-client:0.13.1")
+                implementation("io.rsocket.kotlin:rsocket-core:0.15.4")
+                implementation("io.rsocket.kotlin:rsocket-transport-ktor-client:0.15.4")
             }
         }
         val reactMain by getting {
             dependsOn(commonMain)
             dependsOn(commonClientMain)
             dependencies {
-                implementation("io.ktor:ktor-client-js:1.6.4")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.252-kotlin-1.5.31")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.252-kotlin-1.5.31")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:5.2.0-pre.252-kotlin-1.5.31")
+                implementation("io.ktor:ktor-client-js:2.2.3")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:18.2.0-pre.499")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.2.0-pre.499")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.8.1-pre.501")
 
                 implementation(npm("todomvc-app-css", "2.0.0"))
                 implementation(npm("todomvc-common", "1.0.0"))
@@ -103,6 +107,6 @@ kotlin {
     }
 }
 
-tasks.getByName<Copy>("springProcessResources") {
-    dependsOn(tasks.getByName("reactBrowserDevelopmentWebpack"))
-}
+//tasks.getByName<Copy>("springProcessResources") {
+//    dependsOn(tasks.getByName("reactBrowserDevelopmentWebpack"))
+//}
