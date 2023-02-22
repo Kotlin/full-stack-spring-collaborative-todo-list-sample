@@ -51,7 +51,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation("com.benasher44:uuid:0.6.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-html:0.8.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-html:0.7.3")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
             }
@@ -75,9 +75,9 @@ kotlin {
             dependsOn(commonClientMain)
             dependencies {
                 implementation("io.ktor:ktor-client-js:2.2.3")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:18.2.0-pre.499")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.2.0-pre.499")
-                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.8.1-pre.501")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react:17.0.2-pre.252-kotlin-1.5.31")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:17.0.2-pre.252-kotlin-1.5.31")
+                implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:5.2.0-pre.252-kotlin-1.5.31")
 
                 implementation(npm("todomvc-app-css", "2.0.0"))
                 implementation(npm("todomvc-common", "1.0.0"))
