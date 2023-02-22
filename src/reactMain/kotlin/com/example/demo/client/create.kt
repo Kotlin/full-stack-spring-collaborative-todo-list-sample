@@ -1,12 +1,12 @@
 package com.example.demo.client
 
 import io.ktor.client.*
-import io.ktor.client.features.websocket.*
+import io.ktor.client.plugins.websocket.*
 import io.rsocket.kotlin.core.RSocketConnector
 import io.rsocket.kotlin.core.WellKnownMimeType
+import io.rsocket.kotlin.ktor.client.RSocketSupport
+import io.rsocket.kotlin.ktor.client.rSocket
 import io.rsocket.kotlin.payload.PayloadMimeType
-import io.rsocket.kotlin.transport.ktor.client.RSocketSupport
-import io.rsocket.kotlin.transport.ktor.client.rSocket
 import kotlinx.browser.window
 
 actual suspend fun RSocketClient.Companion.create(): Client {

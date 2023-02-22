@@ -67,7 +67,7 @@ kotlin {
             dependsOn(commonMain)
             dependencies {
                 implementation("io.rsocket.kotlin:rsocket-core:0.15.4")
-                implementation("io.rsocket.kotlin:rsocket-transport-ktor-client:0.15.4")
+                implementation("io.rsocket.kotlin:rsocket-ktor-client:0.15.4")
             }
         }
         val reactMain by getting {
@@ -105,6 +105,6 @@ kotlin {
     }
 }
 
-//tasks.getByName<Copy>("springProcessResources") {
-//    dependsOn(tasks.getByName("reactBrowserDevelopmentWebpack"))
-//}
+tasks.getByName<Copy>("springProcessResources") {
+    dependsOn(tasks.getByName("reactBrowserDevelopmentWebpack"))
+}
