@@ -35,6 +35,10 @@ private val TodoItem: FC<TodoItemProps> = functionComponent { props ->
             Keys.Escape -> {
                 props.endEditing()
             }
+
+            else -> {
+                //TODO?
+            }
         }
     }
 
